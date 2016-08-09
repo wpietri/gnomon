@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="65db9ce7-e4d2-48b8-bf94-3cb56a04de19" name="Default" comment="Adding scorecards.">
+    <list default="true" id="65db9ce7-e4d2-48b8-bf94-3cb56a04de19" name="Default" comment="Load a directory of scorecards in one go.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/gnomon.rb" afterPath="$PROJECT_DIR$/lib/gnomon.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/scorecard_spec.rb" afterPath="$PROJECT_DIR$/spec/scorecard_spec.rb" />
@@ -17,7 +17,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/gnomon@alltests.coverage" NAME="alltests Coverage Results" MODIFIED="1470777230774" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" MODULE_NAME="gnomon" />
+    <SUITE FILE_PATH="coverage/gnomon@alltests.coverage" NAME="alltests Coverage Results" MODIFIED="1470780066021" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" MODULE_NAME="gnomon" />
     <SUITE FILE_PATH="coverage/gnomon@All_tests_in_spec__gnomon.coverage" NAME="All tests in spec: gnomon Coverage Results" MODIFIED="1470689987124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/spec" MODULE_NAME="gnomon" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -39,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gnomon.rb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="gnomon.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/gnomon.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-92">
-              <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+            <state relative-caret-position="279">
+              <caret line="115" column="16" selection-start-line="115" selection-start-column="16" selection-end-line="115" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -59,11 +59,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scorecard_spec.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="scorecard_spec.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/spec/scorecard_spec.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="40" column="43" selection-start-line="40" selection-start-column="43" selection-end-line="40" selection-end-column="43" />
+            <state relative-caret-position="208">
+              <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -72,8 +72,8 @@
       <file leaf-file-name="flamingo.yaml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/spec/flamingo.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+            <state relative-caret-position="30">
+              <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -141,8 +141,8 @@
         <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/spec/spec_helper.rb" />
         <option value="$PROJECT_DIR$/spec/host_spec.rb" />
-        <option value="$PROJECT_DIR$/spec/scorecard_spec.rb" />
         <option value="$PROJECT_DIR$/lib/gnomon.rb" />
+        <option value="$PROJECT_DIR$/spec/scorecard_spec.rb" />
       </list>
     </option>
   </component>
@@ -438,7 +438,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1470688851972</updated>
-      <workItem from="1470688853606" duration="17106000" />
+      <workItem from="1470688853606" duration="18970000" />
     </task>
     <task id="LOCAL-00001" summary="Initial checkin.">
       <created>1470694009700</created>
@@ -468,43 +468,50 @@
       <option name="project" value="LOCAL" />
       <updated>1470774428290</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Load a directory of scorecards in one go.">
+      <created>1470778833006</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1470778833006</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="alltests - 2016.08.09 at 13h 24m 15s.xml">
+    <history-entry file="alltests - 2016.08.09 at 14h 57m 01s.xml">
       <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
     </history-entry>
-    <history-entry file="alltests - 2016.08.09 at 13h 24m 37s.xml">
+    <history-entry file="alltests - 2016.08.09 at 14h 57m 15s.xml">
       <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
     </history-entry>
-    <history-entry file="alltests - 2016.08.09 at 13h 24m 47s.xml">
+    <history-entry file="alltests - 2016.08.09 at 14h 57m 23s.xml">
       <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
     </history-entry>
-    <history-entry file="alltests - 2016.08.09 at 13h 26m 23s.xml">
+    <history-entry file="alltests - 2016.08.09 at 14h 57m 35s.xml">
       <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
     </history-entry>
-    <history-entry file="alltests - 2016.08.09 at 13h 26m 52s.xml">
+    <history-entry file="alltests - 2016.08.09 at 14h 58m 43s.xml">
       <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
     </history-entry>
-    <history-entry file="alltests - 2016.08.09 at 13h 49m 50s.xml">
+    <history-entry file="alltests - 2016.08.09 at 14h 58m 50s.xml">
       <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
     </history-entry>
-    <history-entry file="alltests - 2016.08.09 at 13h 51m 26s.xml">
+    <history-entry file="alltests - 2016.08.09 at 14h 59m 43s.xml">
       <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
     </history-entry>
-    <history-entry file="alltests - 2016.08.09 at 13h 51m 41s.xml">
+    <history-entry file="alltests - 2016.08.09 at 15h 00m 22s.xml">
       <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
     </history-entry>
-    <history-entry file="alltests - 2016.08.09 at 13h 52m 36s.xml">
+    <history-entry file="alltests - 2016.08.09 at 15h 00m 51s.xml">
       <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
     </history-entry>
-    <history-entry file="alltests - 2016.08.09 at 14h 13m 51s.xml">
+    <history-entry file="alltests - 2016.08.09 at 15h 01m 06s.xml">
       <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17106000" />
+    <option name="totallyTimeSpent" value="18970000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1244" height="744" extended-state="6" />
@@ -545,7 +552,8 @@
     <MESSAGE value="Search results now know position. And are now called SearchResult" />
     <MESSAGE value="Handle missing items." />
     <MESSAGE value="Adding scorecards." />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding scorecards." />
+    <MESSAGE value="Load a directory of scorecards in one go." />
+    <option name="LAST_COMMIT_MESSAGE" value="Load a directory of scorecards in one go." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -659,14 +667,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/spec/flamingo.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/gnomon/version.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -675,18 +675,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/spec/scorecard_spec.rb">
+    <entry file="file://$PROJECT_DIR$/spec/flamingo.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="40" column="43" selection-start-line="40" selection-start-column="43" selection-end-line="40" selection-end-column="43" />
+        <state relative-caret-position="30">
+          <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/gnomon.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-92">
-          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+        <state relative-caret-position="279">
+          <caret line="115" column="16" selection-start-line="115" selection-start-column="16" selection-end-line="115" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spec/scorecard_spec.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
           <folding />
         </state>
       </provider>

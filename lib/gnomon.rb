@@ -76,24 +76,56 @@ module Gnomon
       end
     end
 
-    def score(result)
-      total = 0.0
-      base = 0.0
+    def score(search_result)
+      score = Score.new
       @top.each_with_index do |item, i|
         expected = i+1
-        actual = result.position(item)
-        base += weight(expected)
-        total += weight(actual)
+        actual = search_result.position(item)
+        score.add(item, expected, actual, weight(expected), weight(actual))
       end
 
       @more.each do |item|
-        actual = result.position(item)
-        base += MORE_WEIGHT
-        total += MORE_WEIGHT unless actual.nil?
+        actual = search_result.position(item)
+        points = actual.nil? ? 0 : MORE_WEIGHT
+        score.add(item, nil, actual, MORE_WEIGHT, points)
       end
-      total/base
+      score
     end
 
+  end
+
+  class Score
+    def initialize
+      @entries = []
+    end
+    def add(item, expected_position, actual_position, expected_score, actual_score)
+      @entries << ScoreEntry.new(item, expected_position, actual_position, expected_score, actual_score)
+    end
+
+    def to_f()
+      expected = 0.0
+      actual = 0.0
+      @entries.each do |e|
+        expected += e.expected_score
+        actual += e.actual_score
+      end
+      actual/expected
+    end
+
+    def [](i)
+      @entries[i]
+    end
+  end
+
+  class ScoreEntry
+    attr :item, :expected_position, :actual_position, :expected_score, :actual_score
+    def initialize(item, expected_position, actual_position, expected_score, actual_score)
+      @item = item
+      @expected_position = expected_position
+      @actual_position = actual_position
+      @expected_score = expected_score
+      @actual_score = actual_score
+    end
   end
 
 end
