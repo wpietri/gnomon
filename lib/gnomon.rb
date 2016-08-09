@@ -3,6 +3,7 @@ require "gnomon/version"
 require 'open-uri'
 require 'nokogiri'
 require 'yaml'
+require 'forwardable'
 
 module Gnomon
   class Host
@@ -89,20 +90,35 @@ module Gnomon
         points = actual.nil? ? 0 : MORE_WEIGHT
         score.add(item, nil, actual, MORE_WEIGHT, points)
       end
+
+      search_result.each do |item|
+        unless score.has(item)
+          score.add(item, nil, search_result.position(item), 0, 0)
+        end
+      end
       score
     end
 
   end
 
   class Score
+    extend Forwardable
+    # def_delegator :@entries, :include?, :has?
+    def_delegators :@entries, :size, :[], :each, :each_with_index
+
     def initialize
       @entries = []
     end
+
     def add(item, expected_position, actual_position, expected_score, actual_score)
       @entries << ScoreEntry.new(item, expected_position, actual_position, expected_score, actual_score)
     end
 
-    def to_f()
+    def has(item)
+      @entries.map {|e| e.item}.include?(item)
+    end
+
+    def to_f
       expected = 0.0
       actual = 0.0
       @entries.each do |e|
@@ -112,13 +128,11 @@ module Gnomon
       actual/expected
     end
 
-    def [](i)
-      @entries[i]
-    end
   end
 
   class ScoreEntry
     attr :item, :expected_position, :actual_position, :expected_score, :actual_score
+
     def initialize(item, expected_position, actual_position, expected_score, actual_score)
       @item = item
       @expected_position = expected_position
