@@ -2,11 +2,10 @@ require "gnomon/version"
 
 require 'open-uri'
 require 'nokogiri'
+require 'yaml'
 
 module Gnomon
   class Host
-    include Enumerable
-
     def initialize(base_url, css: "a", id_pattern: %r{(.+)})
       @base_url = base_url
       @css = css
@@ -47,4 +46,47 @@ module Gnomon
       pos.nil? ? nil : pos + 1
     end
   end
+
+  TOP_WEIGHTS = 10.downto(1).map { |n| n*2 }
+  MORE_WEIGHT = 1
+
+  class Scorecard
+    attr :search
+
+    def initialize(path)
+      raw_data = YAML.load_file(path)
+      @search = raw_data['search']
+      @top = raw_data['top']
+      @more = raw_data['more']
+    end
+
+    def weight(position)
+      return 0 if position.nil?
+      if position <= 10
+        TOP_WEIGHTS[position-1]
+      else
+        MORE_WEIGHT
+      end
+    end
+
+    def score(result)
+      total = 0.0
+      base = 0.0
+      @top.each_with_index do |item, i|
+        expected = i+1
+        actual = result.position(item)
+        base += weight(expected)
+        total += weight(actual)
+      end
+
+      @more.each do |item|
+        actual = result.position(item)
+        base += MORE_WEIGHT
+        total += MORE_WEIGHT unless actual.nil?
+      end
+      total/base
+    end
+
+  end
+
 end
