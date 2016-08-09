@@ -34,4 +34,10 @@ describe Gnomon::Scorecard do
     search_result = Gnomon::SearchResult.new(result_items[3..6])
     expect(card.score(search_result)).to be_within(0.05).of(0.1)
   end
+
+  it 'loads all the cards in a directory' do
+    cards = Gnomon::Scorecard.load_all(File.dirname(__FILE__))
+    expect(cards.length).to eq(1)
+    expect(cards[0].search).to eq('flamingo')
+  end
 end

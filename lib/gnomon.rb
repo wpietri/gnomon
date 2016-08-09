@@ -51,6 +51,13 @@ module Gnomon
   MORE_WEIGHT = 1
 
   class Scorecard
+    def self.load_all(directory)
+      Dir.entries(directory).
+          select { |f| f =~ /\.yaml$/ }.
+          sort.
+          map { |f| Gnomon::Scorecard.new("#{directory}/#{f}") }
+    end
+
     attr :search
 
     def initialize(path)
