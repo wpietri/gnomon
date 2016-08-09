@@ -2,27 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65db9ce7-e4d2-48b8-bf94-3cb56a04de19" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/gnomon.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.rspec" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.ruby-version" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.travis.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Gemfile" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rakefile" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/console" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/setup" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gnomon.gemspec" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/gnomon.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/gnomon/version.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/example-tops.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/host_spec.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/spec_helper.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/gnomon.rb" afterPath="$PROJECT_DIR$/lib/gnomon.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/host_spec.rb" afterPath="$PROJECT_DIR$/spec/host_spec.rb" />
     </list>
     <ignored path="gnomon.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,7 +17,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/gnomon@alltests.coverage" NAME="alltests Coverage Results" MODIFIED="1470693953709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" MODULE_NAME="gnomon" />
+    <SUITE FILE_PATH="coverage/gnomon@alltests.coverage" NAME="alltests Coverage Results" MODIFIED="1470771131237" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" MODULE_NAME="gnomon" />
     <SUITE FILE_PATH="coverage/gnomon@All_tests_in_spec__gnomon.coverage" NAME="All tests in spec: gnomon Coverage Results" MODIFIED="1470689987124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/spec" MODULE_NAME="gnomon" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -47,21 +29,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="host_spec.rb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="host_spec.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/spec/host_spec.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="23" column="46" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
+            <state relative-caret-position="339">
+              <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gnomon.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="gnomon.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/gnomon.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
+            <state relative-caret-position="270">
+              <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -161,8 +143,8 @@
         <option value="$PROJECT_DIR$/gnomon.gemspec" />
         <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/spec/spec_helper.rb" />
-        <option value="$PROJECT_DIR$/lib/gnomon.rb" />
         <option value="$PROJECT_DIR$/spec/host_spec.rb" />
+        <option value="$PROJECT_DIR$/lib/gnomon.rb" />
       </list>
     </option>
   </component>
@@ -455,26 +437,19 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1470688851972</updated>
-      <workItem from="1470688853606" duration="4905000" />
+      <workItem from="1470688853606" duration="11645000" />
     </task>
+    <task id="LOCAL-00001" summary="Initial checkin.">
+      <created>1470694009700</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1470694009700</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="alltests - 2016.08.08 at 14h 52m 42s.xml">
-      <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
-    </history-entry>
-    <history-entry file="alltests - 2016.08.08 at 14h 53m 39s.xml">
-      <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
-    </history-entry>
-    <history-entry file="alltests - 2016.08.08 at 14h 53m 53s.xml">
-      <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
-    </history-entry>
-    <history-entry file="alltests - 2016.08.08 at 15h 01m 18s.xml">
-      <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
-    </history-entry>
-    <history-entry file="alltests - 2016.08.08 at 15h 01m 43s.xml">
-      <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
-    </history-entry>
     <history-entry file="alltests - 2016.08.08 at 15h 03m 39s.xml">
       <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
     </history-entry>
@@ -490,9 +465,24 @@
     <history-entry file="alltests - 2016.08.08 at 15h 05m 53s.xml">
       <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
     </history-entry>
+    <history-entry file="alltests - 2016.08.09 at 11h 00m 50s.xml">
+      <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
+    </history-entry>
+    <history-entry file="alltests - 2016.08.09 at 12h 30m 04s.xml">
+      <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
+    </history-entry>
+    <history-entry file="alltests - 2016.08.09 at 12h 30m 20s.xml">
+      <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
+    </history-entry>
+    <history-entry file="alltests - 2016.08.09 at 12h 30m 44s.xml">
+      <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
+    </history-entry>
+    <history-entry file="alltests - 2016.08.09 at 12h 32m 11s.xml">
+      <configuration name="alltests" configurationId="RSpecRunConfigurationType" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4905000" />
+    <option name="totallyTimeSpent" value="11645000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1244" height="744" extended-state="6" />
@@ -504,7 +494,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919255" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33074534" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33074534" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -527,6 +517,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial checkin." />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial checkin." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -640,18 +634,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/gnomon.rb">
+    <entry file="file://$PROJECT_DIR$/spec/host_spec.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
+        <state relative-caret-position="339">
+          <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/spec/host_spec.rb">
+    <entry file="file://$PROJECT_DIR$/lib/gnomon.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="23" column="46" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
+        <state relative-caret-position="270">
+          <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
           <folding />
         </state>
       </provider>

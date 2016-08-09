@@ -16,12 +16,13 @@ module Gnomon
     def search(search)
       url = sprintf(@base_url, search)
       found = get(url).css(@css)
-      Result.new(found
-                     .map { |n| n['href'] }
-                     .reject { |l| l.nil? }
-                     .map { |l| l.match(@id_pattern) }
-                     .reject { |m| m.nil? || m.size<1 }
-                     .map { |m| m[1] })
+      result_ids = found
+                       .map { |n| n['href'] }
+                       .reject { |l| l.nil? }
+                       .map { |l| l.match(@id_pattern) }
+                       .reject { |m| m.nil? || m.size<1 }
+                       .map { |m| m[1] }
+      SearchResult.new(result_ids)
     end
 
     def get(url)
@@ -29,7 +30,7 @@ module Gnomon
     end
   end
 
-  class Result
+  class SearchResult
     include Enumerable
 
     def initialize(items)
@@ -38,6 +39,10 @@ module Gnomon
 
     def each(&block)
       @items.each(&block)
+    end
+
+    def position(foo)
+      @items.find_index(foo) +1
     end
   end
 end
