@@ -27,5 +27,6 @@ describe Gnomon::Host do
   it 'will say where something is' do
     result = host.search('fnord')
     expect(result.position('/blouses/trusty-travel-top-in-birds')).to eq(1)
+    expect(result.position('/blouses/does-not-eist')).to eq(nil)
   end
 end

@@ -42,7 +42,9 @@ module Gnomon
     end
 
     def position(foo)
-      @items.find_index(foo) +1
+      pos = @items.find_index(foo)
+
+      pos.nil? ? nil : pos + 1
     end
   end
 end
