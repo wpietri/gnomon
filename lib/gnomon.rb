@@ -86,7 +86,7 @@ module Gnomon
       @top.each_with_index do |item, i|
         expected = i+1
         actual = search_result.position(item)
-        score.add(item, expected, actual, weight(expected), weight(actual))
+        score.add(item, expected, actual, weight(expected), [weight(actual), weight(expected)].min)
       end
 
       @more.each do |item|

@@ -36,9 +36,16 @@ describe Gnomon::Scorecard do
     search_result = Gnomon::SearchResult.new(expected_items[0..2])
     expect(card.score(search_result).to_f).to be_within(0.05).of(0.9)
   end
+
   it 'gets low score for lower matches' do
     search_result = Gnomon::SearchResult.new(expected_items[3..6])
     expect(card.score(search_result).to_f).to be_within(0.05).of(0.1)
+  end
+
+  it 'scores lower for bad order' do
+    normal = Gnomon::SearchResult.new(expected_items[0..2])
+    flipped = Gnomon::SearchResult.new(expected_items[0..2].reverse)
+    expect(card.score(normal).to_f).to be > card.score(flipped).to_f
   end
 
   it 'has all the expected items' do
