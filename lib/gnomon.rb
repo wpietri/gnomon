@@ -4,6 +4,7 @@ require 'open-uri'
 require 'nokogiri'
 require 'yaml'
 require 'forwardable'
+require 'benchmark'
 
 module Gnomon
   class Host
@@ -19,14 +20,17 @@ module Gnomon
 
     def search(search)
       url = sprintf(@base_url, search)
-      found = get(url).css(@css)
+      found = nil
+      timing = Benchmark.measure do
+        found = get(url).css(@css)
+      end
       result_ids = found
                        .map { |n| n['href'] }
                        .reject { |l| l.nil? }
                        .map { |l| l.match(@id_pattern) }
                        .reject { |m| m.nil? || m.size<1 }
                        .map { |m| m[1] }
-      SearchResult.new(result_ids)
+      SearchResult.new(self, result_ids, timing)
     end
 
     def get(url)
@@ -37,8 +41,12 @@ module Gnomon
   class SearchResult
     include Enumerable
 
-    def initialize(items)
+    attr :host
+
+    def initialize(host, items, timing)
+      @host = host
       @items = items
+      @timing = timing
     end
 
     def each(&block)
@@ -49,6 +57,10 @@ module Gnomon
       pos = @items.find_index(foo)
 
       pos.nil? ? nil : pos + 1
+    end
+
+    def time
+      @timing.real
     end
   end
 
@@ -82,7 +94,7 @@ module Gnomon
     end
 
     def score(search_result)
-      score = Score.new(@search)
+      score = Score.new(@search, search_result.host)
       @top.each_with_index do |item, i|
         expected = i+1
         actual = search_result.position(item)
@@ -109,10 +121,11 @@ module Gnomon
     extend Forwardable
     def_delegators :@entries, :size, :[], :each, :each_with_index
 
-    attr :search
-    def initialize(search)
+    attr :search, :host
+    def initialize(search, host=nil)
       @entries = []
       @search = search
+      @host = host
     end
 
     def add(item, expected_position, actual_position, expected_score, actual_score)

@@ -33,4 +33,10 @@ describe Gnomon::Host do
     expect(result.position('/blouses/trusty-travel-top-in-birds')).to eq(1)
     expect(result.position('/blouses/does-not-eist')).to eq(nil)
   end
+
+  it 'knows how long it took' do
+    result = host.search('fnord')
+    expect(result.time).to be_within(0.1).of(0.1)
+  end
+
 end
