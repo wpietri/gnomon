@@ -13,6 +13,10 @@ end
 describe Gnomon::Host do
   host = FakeHost.new("http://example.com/?q=%s", css: "div.product-info > p > a", id_pattern: %r{^/shop(.+)})
 
+  it 'knows the host name' do
+    expect(host.name).to eq('example.com')
+  end
+
   it 'fetches the right url' do
     host.search('fnord')
     expect(host.requested_url).to eq("http://example.com/?q=fnord")

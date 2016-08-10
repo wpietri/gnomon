@@ -16,6 +16,12 @@ describe Gnomon::Scorecard do
     expect(card.search).to eq('flamingo')
   end
 
+  it 'has the search' do
+    search_result = Gnomon::SearchResult.new([])
+    score = card.score(search_result)
+    expect(score.search).to eq(card.search)
+  end
+
   it 'gets 0 for no matches' do
     search_result = Gnomon::SearchResult.new([])
     expect(card.score(search_result).to_f).to eq(0)

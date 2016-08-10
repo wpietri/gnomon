@@ -13,6 +13,10 @@ module Gnomon
       @id_pattern = id_pattern
     end
 
+    def name
+      URI(@base_url.gsub(/\%+/,'')).host
+    end
+
     def search(search)
       url = sprintf(@base_url, search)
       found = get(url).css(@css)
@@ -78,7 +82,7 @@ module Gnomon
     end
 
     def score(search_result)
-      score = Score.new
+      score = Score.new(@search)
       @top.each_with_index do |item, i|
         expected = i+1
         actual = search_result.position(item)
@@ -103,11 +107,12 @@ module Gnomon
 
   class Score
     extend Forwardable
-    # def_delegator :@entries, :include?, :has?
     def_delegators :@entries, :size, :[], :each, :each_with_index
 
-    def initialize
+    attr :search
+    def initialize(search)
       @entries = []
+      @search = search
     end
 
     def add(item, expected_position, actual_position, expected_score, actual_score)
