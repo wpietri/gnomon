@@ -19,7 +19,7 @@ module Gnomon
     end
 
     def search(search)
-      url = sprintf(@base_url, search)
+      url = search_url(search)
       found = nil
       timing = Benchmark.measure do
         found = get(url).css(@css)
@@ -31,6 +31,10 @@ module Gnomon
                        .reject { |m| m.nil? || m.size<1 }
                        .map { |m| m[1] }
       SearchResult.new(self, result_ids, timing)
+    end
+
+    def search_url(search)
+      sprintf(@base_url, search)
     end
 
     def get(url)
@@ -94,7 +98,7 @@ module Gnomon
     end
 
     def score(search_result)
-      score = Score.new(@search, search_result.host)
+      score = Score.new(@search, search_result)
       @top.each_with_index do |item, i|
         expected = i+1
         actual = search_result.position(item)
@@ -121,11 +125,11 @@ module Gnomon
     extend Forwardable
     def_delegators :@entries, :size, :[], :each, :each_with_index
 
-    attr :search, :host
-    def initialize(search, host=nil)
+    attr :search
+    def initialize(search, result)
       @entries = []
       @search = search
-      @host = host
+      @result = result
     end
 
     def add(item, expected_position, actual_position, expected_score, actual_score)
@@ -134,6 +138,14 @@ module Gnomon
 
     def has(item)
       @entries.map {|e| e.item}.include?(item)
+    end
+
+    def host
+      @result.host
+    end
+
+    def time
+      @result.time
     end
 
     def to_f
