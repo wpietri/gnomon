@@ -34,28 +34,28 @@ describe Gnomon::Scorecard do
 
   it 'gets 0 for no matches' do
     search_result = fake_result([])
-    expect(card.score(search_result).to_f).to eq(0)
+    expect(card.score(search_result).score_a).to eq(0)
   end
 
   it 'gets 1 for full match' do
     search_result = fake_result(expected_items)
-    expect(card.score(search_result).to_f).to eq(1)
+    expect(card.score(search_result).score_a).to eq(1)
   end
 
   it 'gets high score for top matches' do
     search_result = fake_result(expected_items[0..2])
-    expect(card.score(search_result).to_f).to be_within(0.05).of(0.9)
+    expect(card.score(search_result).score_a).to be_within(0.05).of(0.9)
   end
 
   it 'gets low score for lower matches' do
     search_result = fake_result(expected_items[3..6])
-    expect(card.score(search_result).to_f).to be_within(0.05).of(0.1)
+    expect(card.score(search_result).score_a).to be_within(0.05).of(0.1)
   end
 
   it 'scores lower for bad order' do
     normal = fake_result(expected_items[0..2])
     flipped = fake_result(expected_items[0..2].reverse)
-    expect(card.score(normal).to_f).to be > card.score(flipped).to_f
+    expect(card.score(normal).score_a).to be > card.score(flipped).score_a
   end
 
   it 'has all the expected items' do
@@ -89,6 +89,26 @@ describe Gnomon::Scorecard do
     expect(score[0].actual_score).to eq(20)
   end
 
+  it 'recognizes dual results' do
+    single = card.score(fake_result(expected_items))
+    dual = card.score(fake_result(expected_items), fake_result(expected_items.reverse))
+    expect(single.dual).to be(false)
+    expect(dual.dual).to be(true)
+  end
+
+  it 'has dual scores' do
+    single = card.score(fake_result(expected_items))
+    dual = card.score(fake_result(expected_items), fake_result(expected_items.reverse))
+    expect(dual.score_a).to eq(single.score_a)
+    expect(dual.score_b).to be < dual.score_a
+  end
+
+  it 'has details on a/b results when available' do
+    score = card.score(fake_result(expected_items), fake_result(expected_items.reverse))
+    expect(score[0].item).to eq('/dresses/its-an-inspired-taste-dress-in-bird')
+    expect(score[0].actual_position_b).to eq(6)
+    expect(score[0].actual_score_b).to eq(10)
+  end
 
   it 'loads all the cards in a directory' do
     cards = Gnomon::Scorecard.load_all(File.dirname(__FILE__))

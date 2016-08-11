@@ -15,7 +15,7 @@ module Gnomon
     end
 
     def name
-      URI(@base_url.gsub(/\%+/,'')).host
+      URI(@base_url.gsub(/\%+/, '')).host
     end
 
     def search(search)
@@ -97,28 +97,41 @@ module Gnomon
       end
     end
 
-    def score(search_result)
-      score = Score.new(@search, search_result)
+    def score(result_a, result_b=nil)
+      score = Score.new(@search, result_a, result_b)
       @top.each_with_index do |item, i|
         expected = i+1
-        actual = search_result.position(item)
-        score.add(item, expected, actual, weight(expected), [weight(actual), weight(expected)].min)
+        actual_a = result_a.position(item)
+        actual_b = result_b ? result_b.position(item) : nil
+        weight_ex = weight(expected)
+        score.add(item, expected, actual_a, actual_b,
+                  weight_ex, [weight(actual_a), weight_ex].min, [weight(actual_b), weight_ex].min)
       end
 
       @more.each do |item|
-        actual = search_result.position(item)
-        points = actual.nil? ? 0 : MORE_WEIGHT
-        score.add(item, nil, actual, MORE_WEIGHT, points)
+        actual_a = result_a.position(item)
+        actual_b = result_b ? result_b.position(item) : nil
+        points_a = actual_a.nil? ? 0 : MORE_WEIGHT
+        points_b = actual_b.nil? ? 0 : MORE_WEIGHT
+        score.add(item, nil, actual_a, actual_b, MORE_WEIGHT, points_a, points_b)
       end
 
-      search_result.each do |item|
+      result_a.each do |item|
         unless score.has(item)
-          score.add(item, nil, search_result.position(item), 0, 0)
+          actual_a = result_a.position(item)
+          actual_b = result_b ? result_b.position(item) : nil
+          score.add(item, nil, actual_a, actual_b, 0, 0, 0)
+        end
+      end
+      if result_b
+        result_b.each do |item|
+          unless score.has(item)
+            score.add(item, nil, nil, result_b.position(item), 0, 0, 0)
+          end
         end
       end
       score
     end
-
   end
 
   class Score
@@ -126,18 +139,22 @@ module Gnomon
     def_delegators :@entries, :size, :[], :each, :each_with_index
 
     attr :search
-    def initialize(search, result)
+
+    def initialize(search, result_a, result_b)
       @entries = []
       @search = search
-      @result = result
+      @result = result_a
+      @result_b = result_b
     end
 
-    def add(item, expected_position, actual_position, expected_score, actual_score)
-      @entries << ScoreEntry.new(item, expected_position, actual_position, expected_score, actual_score)
+    def add(item, expected_position, actual_position_a, actual_position_b,
+            expected_score, actual_score_a, actual_score_b)
+      @entries << ScoreEntry.new(item, expected_position, actual_position_a, actual_position_b,
+                                 expected_score, actual_score_a, actual_score_b)
     end
 
     def has(item)
-      @entries.map {|e| e.item}.include?(item)
+      @entries.map { |e| e.item }.include?(item)
     end
 
     def host
@@ -148,7 +165,16 @@ module Gnomon
       @result.time
     end
 
+    def dual
+      !@result_b.nil?
+    end
+
+    #deprecated
     def to_f
+      score_a
+    end
+
+    def score_a
       expected = 0.0
       actual = 0.0
       @entries.each do |e|
@@ -158,17 +184,31 @@ module Gnomon
       actual/expected
     end
 
+    def score_b
+      expected = 0.0
+      actual = 0.0
+      @entries.each do |e|
+        expected += e.expected_score
+        actual += e.actual_score_b
+      end
+      actual/expected
+    end
+
   end
 
   class ScoreEntry
-    attr :item, :expected_position, :actual_position, :expected_score, :actual_score
+    attr :item, :expected_position, :actual_position, :actual_position_b,
+         :expected_score, :actual_score, :actual_score_b
 
-    def initialize(item, expected_position, actual_position, expected_score, actual_score)
+    def initialize(item, expected_position, actual_position_a, actual_position_b,
+                   expected_score, actual_score_a, actual_score_b)
       @item = item
       @expected_position = expected_position
-      @actual_position = actual_position
+      @actual_position = actual_position_a
+      @actual_position_b = actual_position_b
       @expected_score = expected_score
-      @actual_score = actual_score
+      @actual_score = actual_score_a
+      @actual_score_b = actual_score_b
     end
   end
 
