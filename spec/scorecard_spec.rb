@@ -74,9 +74,9 @@ describe Gnomon::Scorecard do
     expect(score.size).to eq(expected_items.size + 1)
     expect(score[6].item).to eq('/unexpected/item')
     expect(score[6].expected_position).to be_nil
-    expect(score[6].actual_position).to eq(7)
+    expect(score[6].actual_position_a).to eq(7)
     expect(score[6].expected_score).to eq(0)
-    expect(score[6].actual_score).to eq(0)
+    expect(score[6].actual_score_a).to eq(0)
   end
 
   it 'has detail on each result' do
@@ -84,9 +84,9 @@ describe Gnomon::Scorecard do
     score = card.score(search_result)
     expect(score[0].item).to eq('/dresses/its-an-inspired-taste-dress-in-bird')
     expect(score[0].expected_position).to eq(1)
-    expect(score[0].actual_position).to eq(1)
+    expect(score[0].actual_position_a).to eq(1)
     expect(score[0].expected_score).to eq(20)
-    expect(score[0].actual_score).to eq(20)
+    expect(score[0].actual_score_a).to eq(20)
   end
 
   it 'recognizes dual results' do
@@ -108,6 +108,12 @@ describe Gnomon::Scorecard do
     expect(score[0].item).to eq('/dresses/its-an-inspired-taste-dress-in-bird')
     expect(score[0].actual_position_b).to eq(6)
     expect(score[0].actual_score_b).to eq(10)
+  end
+
+  it 'has a and b times' do
+    dual = card.score(fake_result(expected_items), fake_result(expected_items.reverse))
+    expect(dual.time_a).to be > 0
+    expect(dual.time_b).to be > 0
   end
 
   it 'loads all the cards in a directory' do

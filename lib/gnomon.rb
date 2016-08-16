@@ -143,7 +143,7 @@ module Gnomon
     def initialize(search, result_a, result_b)
       @entries = []
       @search = search
-      @result = result_a
+      @result_a = result_a
       @result_b = result_b
     end
 
@@ -157,12 +157,20 @@ module Gnomon
       @entries.map { |e| e.item }.include?(item)
     end
 
-    def host
-      @result.host
+    def host_a
+      @result_a.host
     end
 
-    def time
-      @result.time
+    def host_b
+      @result_b.host
+    end
+
+    def time_a
+      @result_a.time
+    end
+
+    def time_b
+      @result_b.time
     end
 
     def dual
@@ -175,39 +183,35 @@ module Gnomon
     end
 
     def score_a
-      expected = 0.0
-      actual = 0.0
-      @entries.each do |e|
-        expected += e.expected_score
-        actual += e.actual_score
-      end
-      actual/expected
+      calc_score(@entries.map{|e| e.actual_score_a})
     end
 
     def score_b
-      expected = 0.0
-      actual = 0.0
-      @entries.each do |e|
-        expected += e.expected_score
-        actual += e.actual_score_b
-      end
-      actual/expected
+      calc_score(@entries.map{|e| e.actual_score_b})
+    end
+
+    private
+    def calc_score(actuals)
+      expected = @entries.map{|e| e.expected_score}.reduce(0, :+)
+      actual = actuals.reduce(0, :+)
+      1.0 * actual / expected
     end
 
   end
 
   class ScoreEntry
-    attr :item, :expected_position, :actual_position, :actual_position_b,
-         :expected_score, :actual_score, :actual_score_b
+    attr :item, :expected_position, :actual_position_a, :actual_position_b,
+         :expected_score, :actual_score_a, :actual_score_b
+
 
     def initialize(item, expected_position, actual_position_a, actual_position_b,
                    expected_score, actual_score_a, actual_score_b)
       @item = item
       @expected_position = expected_position
-      @actual_position = actual_position_a
+      @actual_position_a = actual_position_a
       @actual_position_b = actual_position_b
       @expected_score = expected_score
-      @actual_score = actual_score_a
+      @actual_score_a = actual_score_a
       @actual_score_b = actual_score_b
     end
   end
