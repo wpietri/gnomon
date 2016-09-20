@@ -38,7 +38,13 @@ module Gnomon
     end
 
     def get(url)
-      Nokogiri::HTML(open(url))
+      begin
+        source = open(url)
+        Nokogiri::HTML(source)
+      rescue Exception => e
+        raise Exception.new("Failed to load URL %s : %s: %s" %
+                                   [url, e.class, e.message])
+      end
     end
   end
 
@@ -83,9 +89,9 @@ module Gnomon
 
     def initialize(path)
       raw_data = YAML.load_file(path)
-      @search = raw_data['search']
-      @top = raw_data['top']
-      @more = raw_data['more']
+      @search = raw_data['search'].to_s.gsub(/ /, '+')
+      @top = raw_data['top'] || []
+      @more = raw_data['more'] || []
     end
 
     def weight(position)
@@ -183,16 +189,16 @@ module Gnomon
     end
 
     def score_a
-      calc_score(@entries.map{|e| e.actual_score_a})
+      calc_score(@entries.map { |e| e.actual_score_a })
     end
 
     def score_b
-      calc_score(@entries.map{|e| e.actual_score_b})
+      calc_score(@entries.map { |e| e.actual_score_b })
     end
 
     private
     def calc_score(actuals)
-      expected = @entries.map{|e| e.expected_score}.reduce(0, :+)
+      expected = @entries.map { |e| e.expected_score }.reduce(0, :+)
       actual = actuals.reduce(0, :+)
       1.0 * actual / expected
     end
