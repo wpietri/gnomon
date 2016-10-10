@@ -5,6 +5,8 @@ require 'nokogiri'
 require 'yaml'
 require 'forwardable'
 require 'benchmark'
+require 'markaby'
+
 
 module Gnomon
   class Host
@@ -74,29 +76,33 @@ module Gnomon
     end
   end
 
-  TOP_WEIGHTS = 10.downto(1).map { |n| n*2 }
+  TOP_WEIGHTS = Array.new(10,4)
   MORE_WEIGHT = 1
 
   class Scorecard
     def self.load_all(directory)
-      Dir.entries(directory).
+      result = Dir.entries(directory).
           select { |f| f =~ /\.yaml$/ }.
           sort.
           map { |f| Gnomon::Scorecard.new("#{directory}/#{f}") }
+      raise "no scorecards found" unless result.length > 0
+      result
     end
 
     attr :search
 
     def initialize(path)
       raw_data = YAML.load_file(path)
-      @search = raw_data['search'].to_s.gsub(/ /, '+')
+      @search = raw_data['search'].to_s.strip.gsub(/ /, '+')
+      raise "invalid search for #{path}" unless search and search.length > 0
       @top = raw_data['top'] || []
       @more = raw_data['more'] || []
+      raise "nothing to look for in #{path}" unless @top.length + @more.length > 0
     end
 
     def weight(position)
       return 0 if position.nil?
-      if position <= 10
+      if position <= TOP_WEIGHTS.length
         TOP_WEIGHTS[position-1]
       else
         MORE_WEIGHT
@@ -221,5 +227,153 @@ module Gnomon
       @actual_score_b = actual_score_b
     end
   end
+
+  class ScorePage < Markaby::Builder
+    def do_css
+      %w(normalize skeleton site).each { |f| link rel: "stylesheet", href: "../css/#{f}.css"
+      }
+    end
+
+    def expected_position_text(entry)
+      if entry.expected_position
+        entry.expected_position
+      elsif entry.expected_score>0
+        '*'
+      else
+        ''
+      end
+    end
+
+    def standard_head(title)
+      head do
+        title title
+        do_css
+      end
+    end
+
+  end
+
+  class ScoreReport
+    def initialize(host_a, host_b, cards, scores)
+      @host_a = host_a
+      @host_b = host_b
+      @cards = cards
+      @scores = scores
+      @report_time = Time.now.strftime("%d/%m/%Y %H:%M")
+    end
+
+    def do_css
+      %w(normalize skeleton site).each { |f| link rel: "stylesheet", href: "../css/#{f}.css"
+      }
+    end
+
+    def write_html_results(results_dir)
+      @scores.each do |score|
+        File.write("#{results_dir}/#{score.search}.html", score_as_html(score))
+        puts "#{score.search} #{sprintf("%5.2f", score.to_f*100)}%"
+      end
+      File.write("#{results_dir}/index.html", index_for(@scores, @host_a, @host_b))
+    end
+
+    def index_for(scores, host_a, host_b)
+      page = ScorePage.new
+      title = page_title(host_a, host_b)
+      page.html do
+        standard_head(title)
+        body do
+          h1 title
+          div class: 'index' do
+            table do
+              tr do
+                if scores[0].dual
+                  th 'score A'
+                  th 'score B'
+                  th 'search'
+                  th 'time A'
+                  th 'time B'
+                else
+                  th 'score'
+                  th 'search'
+                  th 'time'
+                end
+              end
+              scores.each do |score|
+                tr do
+                  td sprintf("%.1f%%", score.score_a*100), class: 'score'
+                  if score.dual
+                    td sprintf("%.1f%%", score.score_b*100), class: 'score'
+                  end
+                  td { a score.search, href: "#{score.search}.html" }
+                  td sprintf("%.1f s", score.time_a)
+                  if score.dual
+                    td sprintf("%.1f s", score.time_b)
+                  end
+
+                end
+              end
+            end
+          end
+        end
+      end
+      page.to_s
+    end
+
+    def page_title(host_a, host_b)
+      "#{host_a.name} vs #{host_b.name} at #{@report_time}"
+    end
+
+    def score_as_html(score)
+      page = ScorePage.new
+      host = @host_b ? @host_b : @host_a
+      title = page_title(@host_a, @host_b)
+      page.html do
+        standard_head(score.search)
+        body do
+          h1 title
+          if score.dual
+            h2 sprintf("#{score.search}: %.1f%% vs %.1f%%", score.score_a*100, score.score_b*100)
+          else
+            h2 sprintf("#{score.search}: %.1f%%", score.score_a*100)
+          end
+          div class: 'results' do
+            table do
+              tr do
+                th(class: 'position') { span 'expected' }
+                if score.dual
+                  th(class: 'position') { span 'actual A' }
+                  th(class: 'position') { span 'actual B' }
+                  th(class: 'score') { span 'score A' }
+                  th(class: 'score') { span 'score B' }
+                else
+                  th(class: 'position') { span 'actual' }
+                  th(class: 'score') { span 'score' }
+                end
+
+                th(class: 'item') { span 'item' }
+              end
+              score.each do |entry|
+                tr do
+                  td expected_position_text(entry), class: 'position'
+                  td entry.actual_position_a, class: 'position'
+                  if score.dual
+                    td entry.actual_position_b, class: 'position'
+                  end
+                  td entry.actual_score_a > 0 ? entry.actual_score_a : '', class: 'score'
+                  if score.dual
+                    td entry.actual_score_b > 0 ? entry.actual_score_b : '', class: 'score'
+                  end
+                  td(class: 'item') { a(entry.item, href: 'http://' + host.name + '/shop' + entry.item) }
+                end
+              end
+            end
+          end
+        end
+      end
+      page.to_s
+    end
+
+
+  end
+
 
 end
